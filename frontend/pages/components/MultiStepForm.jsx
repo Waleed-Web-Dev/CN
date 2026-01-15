@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/card.jsx";
 import {Progress} from "@/components/ui/progress.jsx";
 import {Input} from "@/components/ui/input.jsx";
+import {useformStore} from "../../store/formStore.js";
+import {useNavigate} from "react-router-dom";
 
 const questions = [
     {
@@ -50,11 +52,14 @@ const questions = [
     {
         id: 7,
         question: "What is your budget per Month?",
-        options: ["$100 - $500", "$500 - $2000", "$2000+"],
+        options: ["€3300+", "€6600+", "other"],
     },
 
 
 ];
+
+
+
 
 const variants = {
     initial: (direction) => ({
@@ -76,20 +81,29 @@ const MultiStepForm = () => {
     const [step, setStep] = useState(0);
     const [direction, setDirection] = useState(1);
     const [answer, setAnswer] = useState({});
+    const {fillForm} = useformStore();
     const [userInfo, setUserInfo] = useState({
         name: "",
         email: "",
         phone: ""
     })
     const [bizType, setBizType] = useState("")
+    const [customBudget, setCustomBudget] = useState("")
 
-    const progress = ((step + 1) / questions.length) * 100;
+    const progress = ((step + 1) / (questions.length))  * 100;
+    const navigate = useNavigate();
 
-    const handleSelect = (option) => {
+    const saveAnswer = (questionId, value) => {
         setAnswer((prev) => ({
             ...prev,
-            [questions[step].id] : option,
-        }));
+            [questionId]: value
+        }))
+    }
+
+    const handleSelect = (option) => {
+        const qId = questions[step].id
+
+       saveAnswer(qId, option);
 
         if(step < questions.length - 1){
             setDirection(1);
@@ -102,9 +116,25 @@ const MultiStepForm = () => {
         setStep(step - 1);
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("Final Answer", answer);
+        if(step < 7) return
+        let formData = {
+            name: userInfo.name,
+            email: userInfo.email,
+            phone: userInfo.phone,
+            Q1: answer[1],
+            Q2: answer[2],
+            Q3: answer[3],
+            Q4: answer[4],
+            Q5: answer[5],
+            Q6: answer[6],
+            Q7: answer[7]
+        }
+
+        console.log("Sending Data to backend", formData)
+        navigate("/score");
+        await fillForm(formData);
     }
 
     return(
@@ -149,13 +179,13 @@ const MultiStepForm = () => {
                                            type = "button"
                                            className= "w-full"
                                            onClick = {() => {
-                                               if(!bizType) return
+                                               if(!bizType) return;
+
+                                               saveAnswer(questions[step ].id, bizType);
+
                                                setDirection(1);
                                                setStep(step + 1);
-                                               setAnswer((prev) => ({
-                                                   ...prev,
-                                                   [questions[step].id] : bizType,
-                                               }));
+
                                            }}
                                            >
                                                Continue
@@ -206,10 +236,6 @@ const MultiStepForm = () => {
                                                     if(!userInfo.name || !userInfo.email) return;
                                                     setDirection(1);
                                                     setStep(1);
-                                                    setAnswer((prev) => ({
-                                                        ...prev,
-                                                        [questions[step].id] : userInfo
-                                                    }));
                                                 }}
                                             >
                                                 Continue
@@ -230,12 +256,38 @@ const MultiStepForm = () => {
                                               type = "button"
                                               variant = {selected ? "default" : "outline"}
                                               className= "w-full justify-start"
-                                              onClick = {() => handleSelect(option)}
+                                              onClick = {() => {
+                                                  if(option === "other"){
+                                                      setAnswer((prev) => ({
+                                                      ...prev,
+                                                      [questions[step].id] : "other"
+                                              }))
+                                              }else{
+                                                  handleSelect(option)
+                                              }
+                                              }}
                                               >
                                                   {option}
                                               </Button>
+
+
                                           );
                                       }))
+                                  }
+
+
+                                  {
+                                      (step === 7 && (answer[7] === "other")) && (
+                                          <div className="space-y-3">
+                                              <Input
+                                              type="number"
+                                              placeholder = "Enter your monthly budget"
+                                              value = {customBudget}
+                                              onChange = { e => setCustomBudget(e.target.value)}
+                                              />
+
+                                          </div>
+                                      )
                                   }
                               </div>
 
@@ -257,7 +309,13 @@ const MultiStepForm = () => {
 
                     {
                         step === questions.length - 1 && (
-                            <Button type = "submit" className="ml-auto">
+                            <Button type = "submit" className="ml-auto"
+                            onClick={ () => {
+
+                                if (!customBudget) return;
+                                saveAnswer(7, String(customBudget));
+                            }}
+                            >
                                 Submit
                             </Button>
                         )

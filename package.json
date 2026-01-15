@@ -1,10 +1,32 @@
 {
-  "name": "CN",
+  "name": "cn",
   "version": "1.0.0",
-  "description": "",
+  "private": true,
+  "description": "CN Agency Web App",
+  "homepage": "https://github.com/Waleed-Web-Dev/CN#readme",
+  "bugs": {
+    "url": "https://github.com/Waleed-Web-Dev/CN/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Waleed-Web-Dev/CN.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon backend/index.js"
   },
-  "private": true
+  "dependencies": {
+    "@google/genai": "^1.35.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "marked": "^17.0.1",
+    "mongoose": "^9.1.3",
+    "nodemon": "^3.1.11",
+    "openai": "^6.16.0",
+    "resend": "^6.7.0"
+  }
 }
