@@ -1,5 +1,5 @@
 import {resend} from "./config.js"
-import {strategyEmail, clientEmail} from "./email-template.js";
+import {strategyEmail, clientEmail, buyEmail} from "./email-template.js";
 import {marked} from "marked"
 
 export const emailToClient = async (email, name,text) => {
@@ -42,5 +42,33 @@ export const emailToAgency = async (userInfo, recommendation) => {
     }catch(error){
         console.log(error);
         throw error;
+    }
+}
+
+export const buyProductClient = async (email) => {
+    try{
+        const {data, error} = await resend.emails.send({
+            from: "Waleed <waleed@morefamilies.online>",
+            to: [email],
+            subject: "Thank You For your Purchase",
+            html: buyEmail
+        })
+    }catch (e) {
+        console.log(e)
+        throw e;
+    }
+}
+
+export const buyProductAgency = async (email) => {
+    try{
+        const {data, error} = await resend.emails.send({
+            from: "Waleed <waleed@morefamilies.online>",
+            to: "contentbynawab@gmail.com",
+            subject: `Purchased By ${email}`,
+            html: `New client purchased by ${email}`,
+        })
+    }catch (e) {
+        console.log(e)
+        throw e;
     }
 }

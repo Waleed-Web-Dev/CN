@@ -22,6 +22,11 @@ const Score = () => {
         const handleClick = () => {
             navigate("/Book-Meeting")
         }
+
+        const handleBuy = () => {
+            navigate("/CN-Store")
+        }
+
         return (
             <>
             <div className="w-full min-h-screen flex flex-col items-center justify-center bg-black">
@@ -39,9 +44,12 @@ const Score = () => {
                 { ( !loading && score !== null &&
                     <Card className="w-full max-w-sm text-center">
                         <CardHeader className="font-bold font-sans">Your Score</CardHeader>
-                        <CardContent className="text-green-400 font-bold">{score}</CardContent>
+                        <CardContent className="text-shadow-amber-50 font-bold">{score}</CardContent>
                         <CardFooter className="text-center">
                             <Button type="submit" className="w-full" onClick = {handleClick}>Book Meeting Now!</Button>
+                        </CardFooter>
+                        <CardFooter className="text-center">
+                            <Button type="submit" className="w-full" onClick = {handleBuy}>Buy Now!</Button>
                         </CardFooter>
                     </Card>
                 )}

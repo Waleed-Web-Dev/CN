@@ -1,11 +1,10 @@
 import {create} from "zustand";
 
-const API_URL = "http://localhost:3000/form/fillForm";
+const API_URL = "http://localhost:3000/form";
 
 export const useformStore =  create((set) => ({
     score: null,
     loading: false,
-
     fillForm: async (data) => {
         set({
             loading: true,
@@ -13,7 +12,7 @@ export const useformStore =  create((set) => ({
         })
        console.log(data);
         try{
-            const response = await fetch(API_URL, {
+            const response = await fetch(`${API_URL}/fillForm`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -36,5 +35,27 @@ export const useformStore =  create((set) => ({
             console.error(e);
             throw e;
         }
+    },
+    buyProduct: async (email) => {
+        console.log(email);
+        try{
+            const response = await fetch(`${API_URL}/checkout`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: email ,
+                }),
+            })
+
+            const data = await response.json();
+            console.log(data);
+
+        }catch (e) {
+            console.log(e);
+            throw e;
+        }
+
     }
 }))

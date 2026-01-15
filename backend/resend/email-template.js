@@ -314,3 +314,71 @@ export const clientEmail = `
 </html>
 
 `
+
+export const buyEmail = `
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank You for Your Purchase</title>
+</head>
+
+<body style="margin:0; padding:0; background-color:#f4f6f8; font-family:Arial, Helvetica, sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:20px 0; background-color:#f4f6f8;">
+    <tr>
+      <td align="center">
+        <table width="600" cellpadding="0" cellspacing="0" style="background-color:#ffffff; border-radius:8px; overflow:hidden;">
+
+      <!-- Header -->
+      <tr>
+        <td style="padding:24px; background-color:#111827; text-align:center;">
+          <h1 style="margin:0; font-size:22px; color:#ffffff;">
+            Thank You for Your Purchase
+          </h1>
+        </td>
+      </tr>
+
+      <!-- Content -->
+      <tr>
+        <td style="padding:32px; color:#333333;">
+          <p style="margin:0 0 16px; font-size:16px;">
+            Hi,
+          </p>
+
+          <p style="margin:0 0 16px; font-size:15px; line-height:1.6;">
+            Thank you for purchasing our services from <strong>CN</strong>. We truly appreciate your trust and are excited to work with you.
+          </p>
+
+          <p style="margin:0 0 16px; font-size:15px; line-height:1.6;">
+            One of our agents will review your order and contact you shortly with the next steps.
+          </p>
+
+       
+
+          <p style="margin:0 0 16px; font-size:14px; line-height:1.6; color:#4b5563;">
+            If you do not hear from us within the next 24 hours, please check your Spam or Promotions folder to ensure our emails did not land there.
+          </p>
+
+          <p style="margin:0; font-size:15px; line-height:1.6;">
+            We look forward to delivering great results for you.
+          </p>
+        </td>
+      </tr>
+
+      <!-- Footer -->
+      <tr>
+        <td style="padding:20px; background-color:#f9fafb; text-align:center; font-size:13px; color:#6b7280;">
+          © 2026. CN. All rights reserved.
+        </td>
+      </tr>
+
+    </table>
+  </td>
+</tr>
+
+  </table>
+</body>
+</html>
+`
