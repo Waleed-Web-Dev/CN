@@ -95,7 +95,7 @@ export const strategyEmail = `
                               {bodyEmail}
                             </p>
                             <a
-                              href="https://react.email"
+                              href="http://localhost:5173/CN-Store"
                               style="line-height:100%;text-decoration:none;display:inline-block;max-width:100%;mso-padding-alt:0px;margin-top:24px;border-radius:8px;border-width:1px;border-style:solid;border-color:rgb(229,231,235);background-color:rgb(255,255,255);padding-left:40px;padding-right:40px;padding-top:12px;padding-bottom:12px;font-weight:600;color:rgb(17,24,39)"
                               target="_blank"
                               ><span

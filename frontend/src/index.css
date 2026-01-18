@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-
 @custom-variant dark (&:is(.dark *));
 
 .carousel{
@@ -14,13 +13,80 @@
     display: none;
 }
 
+.desktop {
+    display: block;
+}
+
+.mobile {
+    display: none;
+}
+
+/*
 .group{
     display: flex;
     flex-direction: column;
     gap: 1rem;
     animation: scroll1 30s infinite linear;
     will-change: transform;
+} */
+
+.group-vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    animation: scrollY 30s linear infinite;
 }
+
+@keyframes scrollY {
+    from { transform: translateY(0); }
+    to   { transform: translateY(-33.333%); }
+}
+
+
+@media (width < 48rem) {
+
+    .desktop { display: none; }
+    .mobile  { display: block; }
+
+    .carousel{
+        margin: 19px 78px 45px 45px;
+        width: 88%;
+        height: 190px;
+      overflow: hidden;
+    }
+   /* .group{
+        display: flex;
+        flex-direction: row;
+        animation-name: scroll2;
+        animation: scroll2 7s infinite linear;
+        will-change: transform;
+    }
+    .card {
+        width: 260px;
+        height: 160px;
+    } */
+
+    .group-horizontal {
+        display: flex;
+        flex-direction: row;
+        overflow-x: visible;
+        animation: scrollX 10s linear infinite;
+    }
+
+    .card {
+        width: 70vw;
+        height: 160px;
+        flex: 0 0 auto;
+    }
+    @keyframes scrollX {
+        from { transform: translateX(0); }
+        to   { transform: translateX(-50%); }
+
+    }
+
+
+}
+
 
 .card{
     flex: 0 0 auto;
@@ -45,6 +111,15 @@
         transform: translateY(0%);
     }
 }
+@keyframes scroll2 {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-33.333%);
+    }
+}
+
 
 @theme inline {
     --radius-sm: calc(var(--radius) - 4px);
