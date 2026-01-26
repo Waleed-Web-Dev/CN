@@ -5,7 +5,6 @@ import { GoogleGenAI } from "@google/genai";
 dotenv.config();
 
 export const fillForm = async (req, res) => {
-
        try{
                const {name, email, phone, Q1, Q2, Q3, Q4, Q5, Q6, Q7} = req.body.data;
                console.log("In form controller", name);

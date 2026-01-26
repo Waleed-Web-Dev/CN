@@ -1,0 +1,51 @@
+name: CN
+
+services:
+   api:
+      build:
+          context: ./backend
+          dockerfile: Dockerfile
+      restart: unless-stopped
+      env_file: ./backend/.env
+      volumes:
+        - ./backend:/app
+        - /app/node_modules
+      networks:
+        - CN
+
+   frontend:
+     build:
+       context: ./frontend
+       dockerfile: Dockerfile
+     restart: unless-stopped
+     volumes:
+       - ./frontend:/app
+       - /app/node_modules
+     networks:
+       - CN
+     command: npm run dev -- --host 0.0.0.0
+     depends_on:
+       - api
+
+   caddy:
+     image: caddy:2-alpine
+     ports:
+       - "80:80"
+       - "443:443"
+     volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+     networks:
+       - CN
+     depends_on:
+       - frontend
+
+
+volumes:
+   caddy_data:
+   caddy_config:
+
+networks:
+  CN:
+    driver: bridge

@@ -1,6 +1,6 @@
 import {create} from "zustand";
 
-const API_URL = "http://localhost:3000/form";
+const API_URL = "http://api.app.localhost:3000";
 
 export const useformStore =  create((set) => ({
     score: null,
@@ -12,16 +12,16 @@ export const useformStore =  create((set) => ({
         })
        console.log(data);
         try{
-            const response = await fetch(`${API_URL}/fillForm`, {
-                method: "POST",
+            const response = await fetch(`${API_URL}/form/fillForm`, {
+            method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({data}),
             });
-
+            console.log("call before form store")
             const call = await response.json();
-
+            console.log("call success form store")
             console.log(`In form Store Frontend bridge: : ${call.data}`);
             set({
                 score: `${call.data}`,

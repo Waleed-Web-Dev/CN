@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
-import {connectToDb} from './database/connectToDb.js';
-import formRoutes from './routes/formRoutes.js';
+import {connectToDb} from './src/database/connectToDb.js';
+import formRoutes from './src/routes/formRoutes.js';
 import cors from "cors"
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(cors({
 }))
 
 app.get("/", (req,res) => {
-    res.send("Starting....");
+    res.send("Starting");
 })
 
 app.use("/form", formRoutes)
