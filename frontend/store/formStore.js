@@ -1,6 +1,6 @@
 import {create} from "zustand";
 
-const API_URL = "http://api.app.localhost:3000";
+const API_URL = "https://api.app.localhost";
 
 export const useformStore =  create((set) => ({
     score: null,
@@ -12,6 +12,7 @@ export const useformStore =  create((set) => ({
         })
        console.log(data);
         try{
+            console.log("API CALL:", `${API_URL}/form/fillForm`);
             const response = await fetch(`${API_URL}/form/fillForm`, {
             method: "POST",
                 headers: {

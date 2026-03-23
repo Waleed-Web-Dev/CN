@@ -1,4 +1,5 @@
-FROM node:20-bookworm-slim
+# Development Stage
+FROM node:20-bookworm-slim as development
 
 WORKDIR /app
 
@@ -6,6 +7,11 @@ COPY package*.json ./
 
 RUN npm ci
 
+COPY . .
+
+#Production stage
+FROM caddy:2-alpine as production
+COPY Caddyfile /etc/caddy/Caddyfile
 COPY . .
 
 
